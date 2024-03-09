@@ -166,7 +166,7 @@ In conclusion, our journey of building DermLens using oneDNN and Intel oneAPIs h
 <hr style="border: 0.5px solid #ddd;">
 
 DermNetz: https://dermnetnz.org
-PPT(.pptx): 
+PPT(.pptx): https://docs.google.com/presentation/d/14FqqrPkS088OB0PA4o3QNUF2ixcuVqdh/edit?usp=sharing&ouid=118232092069307515252&rtpof=true&sd=true
 PPT(.pdf): 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -189,6 +189,7 @@ PPT(.pdf):
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 # Mobile Application Output
-![Output](https://github.com/GoppyKrishna-77/DermLens/assets/83293163/778deb10-7f27-4e91-8ba7-56fd206c8c4f)
+![WhatsApp Image 2024-03-09 at 14 31 04_ab3800d2](https://github.com/GoppyKrishna-77/derm-lens/assets/83293163/9d4baa29-4ed3-4d3a-bca7-30d35a74c8c8)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
