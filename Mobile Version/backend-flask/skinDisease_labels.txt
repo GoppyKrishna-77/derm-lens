@@ -1,0 +1,5 @@
+0 Actinic Keratosis 
+1 Acne
+2 Melanoma
+3 Vasculitis
+4 Vascular Tumors

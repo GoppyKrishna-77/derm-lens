@@ -1,0 +1,3 @@
+0 acne keloidalis
+1 alopecia areata
+2 trichotillomania
