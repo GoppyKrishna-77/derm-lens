@@ -167,7 +167,7 @@ In conclusion, our journey of building DermLens using oneDNN and Intel oneAPIs h
 
 DermNetz: https://dermnetnz.org
 PPT(.pptx): https://docs.google.com/presentation/d/14FqqrPkS088OB0PA4o3QNUF2ixcuVqdh/edit?usp=sharing&ouid=118232092069307515252&rtpof=true&sd=true
-PPT(.pdf): 
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 # Technologies used
