@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Find Your Perfect Dermatologist</title>
+    <style>
+      * {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background-color: #eec1a9; /* Peach background */
+        color: #333; /* Text color */
+      }
+      .container {
+        max-width: 800px;
+        margin: 20px;
+        margin: 50px auto;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: white;
+        /* Optional: Add a subtle shadow effect */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        text-align: center;
+        color: #662549; /* Maroon title */
+        font-size: 2em;
+        margin-bottom: 20px;
+      }
+      .doctor-list {
+        list-style: none;
+        padding: 0;
+      }
+      .doctor-item {
+        display: flex; /* Maintain flexbox for side-by-side elements */
+        align-items: center; /* Vertically align name and address */
+        padding: 15px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .doctor-item:last-child {
+        border-bottom: none;
+      }
+      .doctor-icon {
+        margin-right: 10px;
+        font-size: 1.2em; /* Adjust icon size as needed */
+        color: #662549; /* Maroon icon color */
+      }
+      .doctor-name {
+        font-weight: bold;
+      }
+      .doctor-address {
+        font-style: italic;
+      }
+      .flex {
+        display: flex;
+        justify-content: space-between;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Find Your NearBy Perfect Dermatologist</h1>
+      <ul class="doctor-list">
+        {% for doctor in recommendations.doctors[1:] %}
+        <li class="doctor-item">
+          <i class="fas fa-user-md doctor-icon flex"></i>
+          <span class="doctor-name">{{ doctor.name }}</span>
+          <br />
+          <span class="doctor-address">{{ doctor.address }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </body>
+</html>

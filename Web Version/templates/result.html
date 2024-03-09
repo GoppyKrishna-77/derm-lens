@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Report</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 5px;
+        font-family: "poppins", sans-serif;
+      }
+      :root {
+        --bg-color: #efb495;
+        --text-color: #ef9595;
+        --second-color: #662549;
+      }
+      .diet-container {
+        margin: 10px;
+        padding: 5px;
+      }
+      .btn-styles {
+        height: 3rem;
+        border: none;
+        background-color: var(--text-color);
+        border-radius: 10px;
+        font-weight: bold;
+        color: white;
+        width: 160px;
+        box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
+        margin-top: 20px;
+      }
+      .center-btn {
+        display: flex;
+        justify-content: center;
+      }
+      span {
+        color: #662549;
+        font-size: 1rem;
+        font-weight: bold;
+      }
+      .header {
+        position: fixed;
+        top: 0;
+        width: 100vw;
+        padding: 1rem 5%;
+        background: var(--text-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 10;
+        animation: animate 1s ease-in-out;
+      }
+
+      .navbar a {
+        text-decoration: none;
+        color: white;
+        margin-left: 20px;
+        font-weight: bold;
+      }
+      .logo {
+        font-weight: bold;
+        text-decoration: none;
+        color: white;
+      }
+
+      .body-content {
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, 50%);
+      }
+      .body-content h1 {
+        color: var(--second-color);
+        font-size: 3rem;
+        font-weight: bold;
+      }
+      .get-start-btn {
+        height: 3rem;
+        border: none;
+        background-color: var(--text-color);
+        border-radius: 10px;
+        font-weight: bold;
+        color: white;
+        width: 120px;
+        margin-top: 20px;
+      }
+      #HomePage {
+        height: 100vh;
+        width: 100vw;
+      }
+
+      #MainSection {
+        height: 100vh;
+        width: 100vw;
+      }
+      .inner-class {
+        position: relative;
+        top: 20%;
+        text-align: center;
+      }
+      .input-text-field {
+        width: 100%;
+        outline: none;
+        border: none;
+        margin-bottom: 10px;
+        border-bottom: 2px solid black;
+      }
+      label {
+        text-align: left;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        color: var(--second-color);
+        font-weight: bold;
+      }
+      .btn-submit {
+        height: 3rem;
+        border: none;
+        background-color: var(--text-color);
+        border-radius: 10px;
+        font-weight: bold;
+        color: white;
+        width: 120px;
+        margin-top: 20px;
+        margin-left: 40%;
+      }
+      .upload-file {
+        border: none;
+      }
+      .para {
+        color: var(--second-color);
+        padding: 10px;
+        font-weight: bold;
+      }
+      .radio-btn {
+        margin-right: 5px;
+      }
+      .gender-label {
+        color: var(--second-color);
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+      }
+      .result-conatiner {
+        display: flex;
+        justify-content: center;
+        margin-top: 60px;
+        box-shadow: 0px px 2px 0px;
+        height: 70px;
+        width: 100%;
+        padding: 20px;
+      }
+
+      .pad-para {
+        margin-left: 20px;
+      }
+      .container-style {
+        margin-left: 8%;
+        width: 80%;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="result-conatiner">
+        <h1 style="color: #662549">Result:</h1>
+        <h1 id="resultContainerEl">{{ result }}</h1>
+      </div>
+    </div>
+    <div id="docRecommendation" class="container-style" style="display: none">
+      <h1></h1>
+      <form
+        method="POST"
+        enctype="multipart/form-data"
+        action="/doc_recommendation"
+      >
+        <label for="skin_disease">Enter Skin Disease:</label><br />
+        <input
+          class="input-text-field"
+          type="text"
+          id="skin_disease"
+          name="skin_disease"
+          required
+        /><br />
+        <label for="location">Enter Your Location:</label><br />
+        <input
+          type="text"
+          id="location"
+          name="location"
+          class="input-text-field"
+          required
+        /><br />
+        <input
+          type="submit"
+          value="Nearby Doctors"
+          class="get-start-btn shadow"
+        />
+      </form>
+    </div>
+    <div class="center-btn">
+      <button id="showDietary" style="display: none" class="btn-styles">
+        Show Diet Plan
+      </button>
+    </div>
+
+    <div id="description">
+        <!--description code that is filled by the llm model -->
+    </div>
+
+
+
+    <div id="tipContainer" class="diet-container">
+      <span>Tips:</span>
+      <p id="getDietPlan" class="pad-para"></p>
+    </div>
+    <div style="display: none" id="displayTip" class="diet-container">
+      <span>Foods To Take:</span>
+      <p id="takeTip" class="pad-para"></p>
+    </div>
+    <div style="display: none" id="displayDont" class="diet-container">
+      <span>Dont's</span>
+      <p id="Dont" class="pad-para"></p>
+    </div>
+    <div style="margin: 10px">
+      <span>Disclaimer:</span>This information is not intended to be a
+      substitute for professional medical advice, diagnosis, or treatment.
+      Always seek the advice of a qualified healthcare provider with any
+      questions you may have regarding a medical condition.
+    </div>
+
+    <script>
+      let inputVal = document
+        .getElementById("resultContainerEl")
+        .textContent.trim();
+      let btn = document.getElementById("showDietary");
+      let result = "";
+
+      document.addEventListener("DOMContentLoaded", function () {
+        let dontEl = document.getElementById("Dont");
+        let tipEl = document.getElementById("takeTip");
+        let gtDiet = document.getElementById("getDietPlan");
+        let recommendations = document.getElementById("docRecommendation");
+        let displayDontEl = document.getElementById("displayDont");
+        let displayTipEl = document.getElementById("displayTip");
+
+        let list = ["Class: Melanoma", "Class: Vasculitis", "Class: Acne"];
+
+        if (list.includes(inputVal)) {
+          recommendations.style.display = "block";
+        } else {
+          gtDiet.style.display = "block";
+          displayDontEl.style.display = "block";
+          displayTipEl.style.display = "block";
+        }
+
+        let allClassList = [
+          "Class: Actinic Keratosis",
+          "Class: Vasculitis",
+          "Class: Vascular Tumors",
+          "Class: Warts Molluscum",
+          "Class: Tinea Ringworm Candidiasis",
+        ];
+
+        let dietObj = {
+          "Class: Actinic Keratosis":
+            "Here are some additional tips for managing Actinic Keratosis:1 If you notice any rough, scaly patches on your skin, it is best to see a dermatologist to get a diagnosis.2 Early detection and treatment of AK can help to prevent the development of SCC.3 To avoid developing AK, it is important to protect yourself from the sun by wearing sunscreen with an SPF of 30 or higher and protective clothing when you are outdoors.",
+          "Class: Vasculitis":
+            "Here are some additional tips for managing vasculitis:1 Get regular exercise. Exercise helps to reduce inflammation and improve overall health.2 Avoid smoking. Smoking can damage the blood vessels and worsen inflammation.3 Get enough sleep. Sleep is essential for healing and immune function.4 Manage stress. Stress can worsen inflammation. Find healthy ways to manage stress, such as exercise, relaxation techniques, and spending time with loved ones.",
+          "Class: Vascular Tumors":
+            "Here are some tips for reducing the risk of developing vascular tumors:1 Avoid smoking. Smoking can damage the blood vessels and increase the risk of developing vascular tumors.2 Maintain a healthy weight. Obesity can increase the risk of developing vascular tumors.Eat a healthy diet. A diet that is rich in fruits, vegetables, and whole grains can help to reduce inflammation and improve overall health.3 Get regular exercise. Exercise helps to improve blood circulation and reduce inflammation.4 Manage stress. Stress can increase inflammation and worsen vascular tumors.If you have any questions or concerns about vascular tumors, please talk to your doc",
+          "Class: Warts Molluscum":
+            "Warts and molluscum contagiosum are not cancerous. They are both common skin conditions caused by viruses.1 Avoid sharing personal items such as towels, razors, and clothing.2 Wash your hands frequently with soap and water.3 Avoid touching warts or molluscum bumps.4 Cover warts and molluscum bumps with clothing or bandages to prevent them from spreading.",
+          "Class: Tinea Ringworm Candidiasis":
+            "Here are some tips for preventing fungal infections:Here are some tips for preventing fungal infections:1 Keep your skin clean and dry.2 Avoid wearing tight-fitting clothing.3 Change your socks and underwear daily.4 Avoid sharing personal items such as towels, razors, and clothing.5 Wash your hands frequently with soap and water.6 Use over-the-counter or prescription antifungal medications as directed by your doctor.7 See a doctor if your infection does not improve with treatment or if you have any concerns.",
+        };
+        let takeTip = {
+          "Class: Actinic Keratosis":
+            "1 Fruits and vegetables: Fruits and vegetables are packed with vitamins, minerals, and antioxidants that can help to reduce inflammation and improve skin health. Good choices include berries, tomatoes, carrots, and leafy green vegetables.2 Whole grains: Whole grains are a good source of fiber, which can help to keep the digestive system healthy and promote regular bowel movements. This is important because constipation can worsen acne. Good choices include brown rice, quinoa, and oats.3 Omega-3 fatty acids: Omega-3 fatty acids have anti-inflammatory properties, which can help to reduce acne breakouts. Good sources of omega-3 fatty acids include fish, flaxseeds, walnuts, and chia seeds.",
+          "Class: Vasculitis":
+            "1 Maintain a Healthy Lifestyle2 Avoid Triggers3 Seek Emotional Support",
+          "Class: Vascular Tumors":
+            "vascular tumors idhu always non cancerous illa so wheater consult doctor once",
+          "Class: Warts Molluscum":
+            "1 Don't Pick or Scratch2 Consider Over-the-Counter Treatments3 Keep Warts Covered4 Consult a Healthcare Provider",
+          "Class: Tinea Ringworm Candidiasis":
+            "1 Fruits and vegetables2 Whole grains3 Probiotic foods",
+        };
+        let donts = {
+          "Class: Actinic Keratosis":
+            "1 Dairy products2 Refined carbohydrates3 Processed foods",
+          "Class: Vasculitis":
+            "1 Don't Skip Medications2 Don't Smoke3 Don't Neglect Regular Check-Ups4 Don't Overexert Yourself5 Don't Ignore New or Worsening Symptoms",
+          "Class: Vascular Tumors":
+            "1 Don't Self-Diagnose2 Don't Delay Medical Evaluation3 Don't Attempt Self-Removal4 Don't Ignore Recurrent Symptoms5 Don't Neglect Follow-Up Care",
+          "Class: Warts Molluscum":
+            "1 Keep your skin clean and dry.2 Avoid scratching or picking at warts or molluscum bumps.3 Cover warts and molluscum bumps with clothing or bandages to prevent them from spreading.4 Use over-the-counter or prescription medications to treat warts and molluscum contagiosum.5 See a doctor if you have any concerns about warts or molluscum contagiosum.",
+          "Class: Tinea Ringworm Candidiasis": "",
+        };
+
+        if (allClassList.includes(inputVal)) {
+          if (dietObj.hasOwnProperty(inputVal)) {
+            result = dietObj[inputVal]; // Set the result variable
+          }
+        }
+
+        if (result !== "") {
+          btn.style.display = "block";
+        } else {
+          btn.style.display = "none";
+        }
+
+        const takeTipContent = takeTip[inputVal];
+        const dontsContent = donts[inputVal];
+
+        btn.onclick = function () {
+          if (result !== "") {
+            const lines = result.split(/\d\s+/);
+            gtDiet.innerHTML = "";
+
+            lines.forEach((line, index) => {
+              if (line.trim() !== "") {
+                const lineElement = document.createElement("p");
+                lineElement.textContent = `${index + 1}. ${line.trim()}`;
+                gtDiet.appendChild(lineElement);
+              }
+            });
+
+            if (takeTipContent) {
+              const takeTipLines = takeTipContent.split(/\d\s+/);
+              tipEl.innerHTML = "";
+
+              takeTipLines.forEach((line, index) => {
+                if (line.trim() !== "") {
+                  const lineElement = document.createElement("p");
+                  lineElement.textContent = ` ${index + 1}. ${line.trim()}`;
+                  tipEl.appendChild(lineElement);
+                }
+              });
+            }
+
+            if (dontsContent) {
+              const dontsLines = dontsContent.split(/\d\s+/);
+              dontEl.innerHTML = "";
+
+              dontsLines.forEach((line, index) => {
+                if (line.trim() !== "") {
+                  const lineElement = document.createElement("p");
+                  lineElement.textContent = ` ${index + 1}. ${line.trim()}`;
+                  dontEl.appendChild(lineElement);
+                }
+              });
+            }
+          }
+        };
+      });
+      /*btn.onclick = function () {
+
+                  if (result !== "") {
+                    const lines = result.split(/\d\s+/); // Split the content by numbers and spaces
+                    gtDiet.innerHTML = ""; // Clear the previous content
+
+                    lines.forEach((line, index) => {
+                      if (line.trim() !== "") {
+                        const lineElement = document.createElement("p"); // Create a paragraph element
+                        lineElement.textContent = `${index + 1}. ${line.trim()}`; // Add line number and content
+                        gtDiet.appendChild(lineElement); // Append the paragraph element to gtDiet
+                      }
+                    });
+
+                    console.log(result); // Display result in the console
+                  }
+                };*/
+      //});
+    </script>
+  </body>
+</html>
